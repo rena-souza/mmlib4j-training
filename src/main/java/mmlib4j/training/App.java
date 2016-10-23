@@ -1,4 +1,4 @@
-package mmlib4j;
+package mmlib4j.training;
 
 /**
  * Hello world!
