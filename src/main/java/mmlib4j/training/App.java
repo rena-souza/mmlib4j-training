@@ -2,6 +2,8 @@ package mmlib4j.training;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Hello world!
@@ -20,13 +22,12 @@ public class App
         assertNotEmpty(markParam, "You need to specify the folder with the mark images");
         assertNotEmpty(outParam, "You need to specify the output file");
 
-
-
-
         File original = new File(originalParam);
         File mark = new File(markParam);
 
         FolderComparator folderComparator = new FolderComparator(original, mark);
+
+        List<PixelData> pixelDataList = new LinkedList<PixelData>();
 
         for(MatchImage matchImage : folderComparator.getMatchImages()){
 
@@ -37,11 +38,13 @@ public class App
             MarkImageComparator markImageComparator = new MarkImageComparator(matchImage, pixelLabel);
             markImageComparator.build();
 
-            File fileOut = new File(outParam);
-            new PixelDataCsvWriter(fileOut, markImageComparator.getPixelsData()).write();
+            pixelDataList.addAll(markImageComparator.getPixelsData());
 
         }
 
+        File fileOut = new File(outParam);
+        new PixelDataCsvWriter(fileOut,pixelDataList).write();
+        System.out.println("Success");
     }
 
     private static void assertNotEmpty(String param, String message) {
