@@ -21,6 +21,10 @@ public class FolderComparator {
         this.markFolder = markFolder;
     }
 
+    public String getOriginalFolderSimpleName(){
+        return originalFolder.getName();
+    }
+
     public Collection<MatchImage> getMatchImages(){
         File[] originalFiles = originalFolder.listFiles();
         File[] markFiles = markFolder.listFiles();

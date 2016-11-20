@@ -14,12 +14,14 @@ public class MarkImageComparator {
 
     ColorImage originalImage;
     GrayScaleImage markImage;
+    String label;
 
     private List<PixelData> pixelsData = new ArrayList<PixelData>();
 
-    public MarkImageComparator(MatchImage matchImage){
+    public MarkImageComparator(MatchImage matchImage, String label){
         originalImage = ImageBuilder.openRGBImage(matchImage.getOriginalImage());
         markImage = ImageBuilder.openGrayImage(matchImage.getMarkImage());
+        this.label = label;
     }
 
     public void build(){
@@ -45,7 +47,7 @@ public class MarkImageComparator {
         int blue = originalImage.getBlue(x, y);
 
 
-        return new PixelData(red, green, blue);
+        return new PixelData(red, green, blue, label);
     }
 
 
